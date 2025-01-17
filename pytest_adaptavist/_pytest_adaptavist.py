@@ -586,7 +586,7 @@ class PytestAdaptavist:
             test_case_key = marker.kwargs["test_case_key"]
             try:
                 test_step_key = int(marker.kwargs["test_step_key"])
-            except KeyError:
+            except (KeyError, TypeError):
                 test_step_key = None
             self.create_report(
                 test_case_key,
