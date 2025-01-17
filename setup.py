@@ -5,7 +5,7 @@ setup(
     description="pytest plugin for generating test execution results within Jira Test Management (tm4j)",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    version="0.19",
+    version="0.30.0",
     url="https://github.com/slug85/pytest-adaptavist",
     py_modules=["pytest_adaptavist"],
     packages=["pytest_adaptavist"],
