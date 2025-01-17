@@ -13,6 +13,7 @@ from types import FrameType, TracebackType
 from typing import Any
 
 import pytest
+import requests
 from _pytest._io.saferepr import saferepr
 from _pytest.config import Config
 from _pytest.deprecated import PytestDeprecationWarning
@@ -89,6 +90,16 @@ class PytestAdaptavist:
         self.adaptavist: Adaptavist = Adaptavist(
             self.cfg.get("jira_server", ""), self.cfg.get("jira_username", ""), self.cfg.get("jira_password", "")
         )
+        token = os.getenv("JIRA_TOKEN")
+        if token:
+            self.adaptavist._session.close()
+            self.adaptavist._session.auth = None
+            self.adaptavist._session = requests.Session()
+            self.adaptavist._session.headers.update({
+                'Authorization': f'Bearer {token}',
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+            })
 
         self.atm_configure()
 
